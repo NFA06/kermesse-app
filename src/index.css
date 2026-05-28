@@ -1,0 +1,317 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --violet:        #6A43C7;
+  --violet-light:  #7C4DFF;
+  --violet-dark:   #5E35B1;
+  --violet-surface:#EDE7F6;
+  --orange:        #FF9800;
+  --pink:          #E91E63;
+  --teal:          #009688;
+  --green:         #4CAF50;
+  --bg:            #F2F2F7;
+  --white:         #FFFFFF;
+  --text:          #1A1A2E;
+  --text-muted:    #6B7280;
+  --card-shadow:   0 2px 16px rgba(106,67,199,.10);
+  --radius-lg:     18px;
+  --radius-md:     12px;
+  --radius-sm:     8px;
+  --font:          'Nunito', sans-serif;
+  --font-body:     'Nunito Sans', sans-serif;
+  --safe-bottom:   env(safe-area-inset-bottom, 0px);
+}
+
+html, body, #root {
+  height: 100%; width: 100%;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* Le scroll est géré par .page */
+}
+
+/* ── Scrollbar fine ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+/* ── Utilitaires ─────────────────────────────────────────── */
+.page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  /* Les enfants avec flex:1+overflowY:auto créent un scroll interne */
+  /* Les pages sans enfant scrollable utilisent .page-scroll */
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity .15s, transform .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(.96); opacity: .85; }
+.btn-primary  { background: var(--violet); color: #fff; }
+.btn-orange   { background: var(--orange); color: #fff; }
+.btn-pink     { background: var(--pink);   color: #fff; }
+.btn-teal     { background: var(--teal);   color: #fff; }
+.btn-ghost    { background: var(--violet-surface); color: var(--violet); }
+.btn-danger   { background: #FDECEA; color: #D32F2F; }
+.btn-full     { width: 100%; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+  border: 2px solid transparent;
+  white-space: nowrap;
+}
+.chip-active   { background: var(--violet); color: #fff; border-color: var(--violet); }
+.chip-inactive { background: #fff; color: var(--text-muted); border-color: #E5E7EB; }
+
+/* ── Header gradients ────────────────────────────────────── */
+.header-gradient {
+  background: linear-gradient(135deg, var(--violet-dark), var(--violet-light));
+  border-radius: 0 0 24px 24px;
+  color: #fff;
+  padding: 48px 20px 24px;
+  position: relative;
+}
+
+/* ── Nav bar retour ──────────────────────────────────────── */
+.back-btn {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: rgba(255,255,255,.2);
+  border: none;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; cursor: pointer;
+  font-size: 20px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity:0; transform: scale(.92); }
+  to   { opacity:1; transform: scale(1); }
+}
+.anim-fadeup  { animation: fadeUp  .4s ease both; }
+.anim-scalein { animation: scaleIn .3s ease both; }
+
+/* Stagger delays */
+.delay-1 { animation-delay: .05s; }
+.delay-2 { animation-delay: .10s; }
+.delay-3 { animation-delay: .15s; }
+.delay-4 { animation-delay: .20s; }
+.delay-5 { animation-delay: .25s; }
+.delay-6 { animation-delay: .30s; }
+
+/* ── Spinner ─────────────────────────────────────────────── */
+.spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--violet-surface);
+  border-top-color: var(--violet);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin: 40px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Badge notification ──────────────────────────────────── */
+.badge {
+  background: var(--pink);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font);
+  min-width: 18px; height: 18px;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+
+/* ── Dialog overlay ──────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  padding-bottom: var(--safe-bottom);
+}
+.dialog {
+  background: var(--white);
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  animation: slideUp .3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Inputs ──────────────────────────────────────────────── */
+input[type=text], input[type=number], input[type=email], textarea {
+  width: 100%;
+  border: 1.5px solid #E5E7EB;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+  background: var(--white);
+}
+input:focus, textarea:focus { border-color: var(--violet); }
+
+/* ── Toast ───────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: calc(24px + var(--safe-bottom));
+  left: 50%; transform: translateX(-50%);
+  background: #1A1A2E;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 99px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 200;
+  animation: toastIn .3s ease;
+  white-space: nowrap;
+}
+@keyframes toastIn {
+  from { opacity:0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Stat pill ───────────────────────────────────────────── */
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.stat-pill .value {
+  font-family: var(--font);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--text);
+}
+.stat-pill .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider-v {
+  width: 1px;
+  background: #E5E7EB;
+  align-self: stretch;
+  margin: 4px 0;
+}
+
+/* ── Menu card (HomeView) ────────────────────────────────── */
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  padding: 18px 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .15s, box-shadow .15s;
+  border: none;
+  width: 100%;
+  text-align: left;
+  position: relative;
+}
+.menu-card:active { transform: scale(.97); box-shadow: 0 1px 6px rgba(106,67,199,.08); }
+
+.menu-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.menu-card .chevron {
+  margin-left: auto;
+  color: #C4C4C4;
+  font-size: 18px;
+}
+
+/* Masque scrollbar horizontale sur webkit (Chrome, Safari) */
+div::-webkit-scrollbar { display: none; }
+
+/* ── Scroll horizontal produits caisse ──────────────────────────────────── */
+.produits-scroll {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 138px;
+  gap: 8px 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: grab;
+}
+.produits-scroll:active { cursor: grabbing; }
+.produits-scroll::-webkit-scrollbar { display: none; }
+
+/* Pages sans zone de scroll interne — scroll sur toute la page */
+.page-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
